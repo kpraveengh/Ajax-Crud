@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var url = "http://localhost/ionictest/php/json.php";
+            $.getJSON(url, function(result) {
+                console.log(result);
+                $.each(result, function(i, field) {
+                    var id = field.id;
+                    var title = field.title;
+                    var duration = field.duration;
+                    var price = field.price;
+                    $("#listview").append("<a  class='item item-thumbnail-left' href='form.html?id=" + id + "&title=" + title + "&duration=" + duration + "&price=" + price + "'><img src='Jellyfish.jpg'><h2>" + title + "</h2><span>" + duration + "</span><p>" + price + "</p></a>");
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+<ion-pane>
+    <div class="bar bar-header  bar-positive">
+        <a class="button button-icon icon ion-navicon" href="index.html"></a>
+        <div class="h1 title">Ionic App</div>
+        <a class="button button-clear button-stable" href="readjson.html">All</a>
+    </div>
+    <br>
+    <br>
+	<ion-content>
+	<div class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search">
+  </label>
+</div>
+	    <div class="list" id="listview"></div>
+
+	</ion-content>
+    <div class="tabs-striped tabs-color-assertive">
+        <div class="tabs">
+            <a class="tab-item " href="index.html">
+                <i class="icon ion-home"></i> Test
+            </a>
+            <a class="tab-item active" href="readjson.html">
+                <i class="icon ion-star"></i> Favorites
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-gear-a"></i> Settings
+            </a>
+        </div>
+    </div>
+	</ion-pane>
+</body>
+
+</html>

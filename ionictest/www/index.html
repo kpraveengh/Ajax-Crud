@@ -1,0 +1,83 @@
+<html>
+
+<head>
+<title>CRUD Operation</title>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var title = $("#title").val();
+            var duration = $("#duration").val();
+            var price = $("#price").val();
+            var dataString = "title=" + title + "&duration=" + duration + "&price=" + price + "&insert=";
+            if ($.trim(title).length > 0 & $.trim(duration).length > 0 & $.trim(price).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/ionictest/php/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+  
+<body>
+<ion-pane>
+<ion-header-bar class="bar bar-header  bar-positive">
+  <button class="button button-icon icon ion-navicon"></button>
+  <div class="h1 title">Ionic App</div>
+   <a class="button button-clear button-stable" href="readjson.html">All</a>
+</ion-header-bar>
+<div class="tabs-striped tabs-color-assertive">
+    <div class="tabs">
+      <a class="tab-item active" href="index.html">
+        <i class="icon ion-home"></i>
+        Test
+      </a>
+      <a class="tab-item" href="readjson.html">
+        <i class="icon ion-star"></i>
+        Favorites
+      </a>
+      <a class="tab-item"  disabled href="#">
+        <i class="icon ion-gear-a"></i>
+        Settings
+      </a>
+    </div>
+  </div>
+  <ion-content>
+	<div class="list list-inset"  style="margin-top:70px">
+      <input type="hidden" id="id" placeholder="Name" value="" />
+		   <label class="item item-input">
+				<input type="text" id="title" placeholder="Title" value="" />
+			</label>
+			<label class="item item-input">
+					<input type="text" id="duration" placeholder="Position" value="" />
+			</label>
+			<label class="item item-input">
+				<input type="text" id="price" placeholder="Salary" value="" />
+			</label>
+		  <label>
+			<button class="button button-full button-balanced">Insert</button>
+		</label>
+	</div>
+</ion-content>
+</ion-pane>
+</body>
+
+</html>
