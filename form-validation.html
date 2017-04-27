@@ -1,0 +1,88 @@
+<form class="form-horizontal" method="post" id="submit" name="submit" onsubmit="return validateForm()">
+<span class="text-danger" id="msg"></span>
+<button class="btn btn-primary" name="submit" id="submit" type="submit">Register</button>
+</form>
+<script>
+			
+		$("#submit").click(function(){
+				 
+					var FirstName=$.trim($('#FirstName').val());
+					if (FirstName==undefined || FirstName=="")
+					 {
+						$("#msg").text("Please enter your Firstname.");
+						$('#FirstName').focus();
+						return false;
+					 }
+					var LastName=$.trim($('#LastName').val());
+					if (LastName==undefined || LastName=="")
+					{
+						$("#msg").text("Please enter your Lastname.");
+						$('#LastName').focus();
+						return false;
+					}
+					var Mobile=$.trim($('#Mobile').val());
+					if (Mobile==undefined || Mobile=="")
+					{
+						$("#msg").text("Please enter your Mobile.");
+						$('#Mobile').focus();
+						return false;
+					}else{
+						var MobilePattern = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+						if( !MobilePattern.test(Mobile))
+					{
+					$("#msg").text("Please enter valid Mobile numer.");
+					$('#Mobile').focus();
+					return false;
+					}
+					}
+					 var Email=$.trim($('#Email').val());
+					if (Email==undefined || Email=="")
+					{
+						$("#msg").text("Please enter your Email.");
+						$('#Email').focus();
+						return false;
+					}else
+				  {
+					var EmailPattern = /^[a-z0-9._-]+@[a-z]+.[a-z.]{2,5}$/i;
+					if( !EmailPattern.test(Email))
+					{
+					$("#msg").text("Please enter valid email.");
+					$('#Email').focus();
+					return false;
+					}
+				  }
+					 var Username=$.trim($('#Username').val());
+					if (Username==undefined || Username=="")
+					{
+						$("#msg").text("Please enter your U.");
+						$('#Username').focus();
+						return false;
+					}
+					var Password=$.trim($('#Password').val());
+					if (Password==undefined || Password=="")
+					{
+						$("#msg").text("Please enter your Password.");
+						$('#Password').focus();
+						return false;
+					}
+					
+					
+					$.ajax({
+						type : "POST",
+						url  : "http://localhost/api/index.php/users/create",
+						data : $("#submit").serialize(),
+						cache: false,
+					    success : function(res){
+							if($.trim(res)=="success"){
+							location.href="account-home.php";
+							}else{
+							$("#msg").text(res);
+							}
+						}					
+					});
+					
+					
+					
+		});
+		
+		</script>
